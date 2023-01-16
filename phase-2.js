@@ -1,24 +1,62 @@
 function stretch(timeLeft) {
   // refactor your code from phase 1
   // Your code here
+  return new Promise((resolve, reject) =>{
+    if (timeLeft >= 1000){
+
+      setTimeout(
+        () => {
+        console.log("done stretching");
+        resolve(timeLeft - 1000);
+      }, 1000)
+
+    }else{
+      reject("not enough time to stretch");
+    }
+  });
 }
 
 
 function runOnTreadmill(timeLeft) {
   // refactor your code from phase 1
   // Your code here
+  return new Promise((resolve, reject) =>{
+    if (timeLeft >= 500){
+      setTimeout(() => {
+        console.log("done running on the treadmill")
+        resolve(timeLeft - 500);
+      }, 500)
+    }else{
+      reject("not enough time to run on the treadmill");
+    }
+  });
 }
 
 
 function liftWeights(timeLeft) {
   // refactor your code from phase 1
   // Your code here
+  return new Promise((resolve, reject) =>{
+    if (timeLeft >= 2000){
+      setTimeout(() => {
+        resolve(timeLeft - 2000);
+        console.log("done lifting weights")
+      })
+    }else{
+      reject("not enough time to lift weights");
+    }
+  });
 }
 
 
 function workout(totalTime) {
   // refactor your code from phase 1
   // Your code here
+  stretch(totalTime)
+  .then(runOnTreadmill)
+  .then(liftWeights)
+  .then((timeLeft) => console.log(`done working out with ${timeLeft/1000} seconds left`))
+  .catch(reason => console.log(reason))
 }
 
 /* ============================ TEST YOUR CODE ============================
@@ -28,25 +66,25 @@ Comment in each invocation of your workout function below and run the file
 */
 
 
-// workout(500);
+ //workout(500);
   // should print out the following:
     // Error:  you dont have enough time to stretch
 
 
-// workout(1000);
+ //workout(1000);
   // should print out the following:
     // done stretching
     // Error:  you dont have enough time to run on treadmill
 
 
-// workout(2000);
+ //workout(2000);
   // should print out the following:
     // done stretching
     // done running on treadmill
     // Error:  you dont have enough time to lift weights
 
 
-// workout(4000);
+ workout(4000);
   // should print out the following:
   //   done stretching
   //   done running on treadmill
